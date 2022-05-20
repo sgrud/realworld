@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+
+    "rootDir": "./packages",
+    "declarationDir": null,
+
+    "declaration": false,
+    "declarationMap": false,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "inlineSources": true,
+    "jsx": "react-jsx",
+    "jsxFactory": null,
+    "jsxFragmentFactory": null,
+    "jsxImportSource": "@sgrud/shell",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+
+    "paths": {
+      "sgrud-realworld-*": [
+        "./packages/*"
+      ]
+    }
+  },
+
+  "include": [
+    "./packages/**/*.ts"
+  ]
+}

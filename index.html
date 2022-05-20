@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Conduit</title>
+
+<link rel="stylesheet" href="//demo.productionready.io/main.css">
+
+<slot hashBased baseHref="/realworld/#!/" is="router-outlet">
+  Loading app...
+</slot>
+
+<script async
+  src="//unpkg.com/es-module-shims/dist/es-module-shims.js">
+</script>
+
+<script type="importmap-shim">
+  {
+    "imports": {
+      "@babel/runtime/helpers/": "//cdn.skypack.dev/@babel/runtime/helpers/",
+      "@sgrud/core": "//cdn.skypack.dev/@sgrud/core",
+      "comlink": "//cdn.skypack.dev/comlink",
+      "incremental-dom": "//cdn.skypack.dev/incremental-dom",
+      "rxjs": "//cdn.skypack.dev/rxjs",
+      "rxjs/ajax": "//cdn.skypack.dev/rxjs/ajax",
+      "tslib": "//cdn.skypack.dev/tslib"
+    }
+  }
+</script>
+
+<script type="module-shim">
+  import { Kernel } from '@sgrud/core';
+  new Kernel(null, '/realworld/package.json#', '//unpkg.com');
+</script>

@@ -1,0 +1,66 @@
+{
+  "name": "sgrud-realworld-lazy",
+  "private": true,
+  "version": "0.0.0",
+  "source": "./index.ts",
+  "main": "../../realworld/lazy/index.js",
+  "exports": "../../realworld/lazy/index.modern.js",
+  "amdNames": {
+    "@babel/runtime/helpers/createClass": null,
+    "@babel/runtime/helpers/createForOfIteratorHelperLoose": null,
+    "@babel/runtime/helpers/inheritsLoose": null,
+    "@babel/runtime/helpers/wrapNativeSuper": null,
+    "@sgrud/core": null,
+    "@sgrud/shell": null,
+    "@sgrud/shell/jsx-runtime": null,
+    "rxjs": null,
+    "sgrud-realworld-core": null,
+    "sgrud-realworld-eager": null,
+    "sgrud-realworld-lazy": null,
+    "tslib": "globalThis"
+  },
+  "sgrud": {
+    "runtimify": [
+      "@babel/runtime:helpers.umd"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.18.0",
+    "@sgrud/core": "latest",
+    "@sgrud/shell": "latest",
+    "rxjs": "^7.5.5",
+    "sgrud-realworld-core": "latest",
+    "sgrud-realworld-eager": "latest",
+    "tslib": "^2.4.0"
+  },
+  "sgrudDependencies": {
+    "sgrud-realworld-core": "/realworld/core",
+    "sgrud-realworld-eager": "/realworld/eager"
+  },
+  "webDependencies": {
+    "@babel/runtime": {
+      "exports": {
+        "@babel/runtime/helpers/": "./helpers/esm/"
+      },
+      "unpkg": [
+        "./runtimify.umd.js"
+      ]
+    },
+    "rxjs": {
+      "exports": {
+        "rxjs": "./dist/esm5/index.js"
+      },
+      "unpkg": [
+        "./dist/bundles/rxjs.umd.min.js"
+      ]
+    },
+    "tslib": {
+      "exports": {
+        "tslib": "./tslib.es6.js"
+      },
+      "unpkg": [
+        "./tslib.js"
+      ]
+    }
+  }
+}
