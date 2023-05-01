@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Conduit</title>
+
+<link rel="icon" href="/realworld/favicon.ico">
+<link rel="stylesheet" href="/realworld/style.css">
+<script async src="//unpkg.com/es-module-shims"></script>
+<slot hashBased baseHref="/realworld/#!/" is="router-outlet"></slot>
+
+<script type="importmap-shim">
+  {
+    "imports": {
+      "@babel/runtime/helpers/": "//unpkg.com/@babel/runtime/helpers/esm/",
+      "@sgrud/core": "//unpkg.com/@sgrud/core/index.modern.js",
+      "comlink": "//unpkg.com/comlink/dist/esm/comlink.min.js",
+      "rxjs": "//unpkg.com/rxjs/dist/esm5/index.js",
+      "rxjs/ajax": "//unpkg.com/rxjs/dist/esm5/ajax/index.js",
+      "tslib": "//unpkg.com/tslib/tslib.es6.js"
+    }
+  }
+</script>
+
+<!-- TODO: https://github.com/google/incremental-dom/commit/3be2338 -->
+<script type="importmap-shim">
+  { "imports": { "incremental-dom": "//esm.sh/incremental-dom" } }
+</script>
+
+<script type="module-shim">
+  import { Kernel } from '@sgrud/core';
+  new Kernel('//unpkg.com').require('/realworld/eager').subscribe();
+</script>

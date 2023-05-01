@@ -1,2 +1,2 @@
-export * from './src/api/lazy-endpoint';
-export * from './src/components/settings';
+export * from './src/component/editor';
+export * from './src/component/settings';

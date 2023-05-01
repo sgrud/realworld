@@ -1,8 +1,8 @@
 import { Factor } from '@sgrud/core';
 import { Component, Reference, Route, Router } from '@sgrud/shell';
-import { from, takeWhile } from 'rxjs';
-import { AjaxResponse as Response } from 'rxjs/ajax';
-import { Api, Credentials, Endpoint } from 'sgrud-realworld-core';
+import { Store } from '@sgrud/state';
+import { Errors, UserStore } from 'sgrud-realworld-core';
+import { ErrorMessages } from '../fragment/error/messages';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,23 +16,18 @@ declare global {
 @Component('register-component')
 export class RegisterComponent extends HTMLElement implements Component {
 
-  public readonly styles: string[] = [
-    '@import url("//demo.productionready.io/main.css");'
-  ];
-
-  @Factor(() => Credentials)
-  private readonly credentials!: Credentials;
-
-  @Factor(() => Endpoint)
-  private readonly endpoint!: Endpoint;
+  public readonly styles: string[] = ['@import url("/realworld/style.css");'];
 
   @Factor(() => Router)
   private readonly router!: Router;
 
-  @Reference('form', ['input'])
-  private readonly form?: HTMLFormElement;
+  @Factor(() => UserStore)
+  private readonly store!: Store<UserStore>;
 
-  private readonly errors: string[] = [];
+  @Reference('form', ['input'])
+  private readonly form?: HTMLFormElement | undefined;
+
+  private errors?: Errors | undefined;
 
   public get template(): JSX.Element {
     return <>
@@ -44,13 +39,7 @@ export class RegisterComponent extends HTMLElement implements Component {
               <p className="text-xs-center">
                 <a href="/login" is="router-link">Have an account?</a>
               </p>
-              {this.errors.length > 0 && <>
-                <ul className="error-messages">
-                  {this.errors.map((error) => <>
-                    <li>{error}</li>
-                  </>)}
-                </ul>
-              </>}
+              <ErrorMessages errors={this.errors}/>
               <form key="form">
                 <fieldset className="form-group">
                   <input
@@ -80,8 +69,8 @@ export class RegisterComponent extends HTMLElement implements Component {
                 </fieldset>
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
-                  disabled={!this.form?.checkValidity() || undefined}
-                  onclick={() => this.register()}
+                  disabled={!this.form?.checkValidity() || undefined!}
+                  onclick={() => this.dispatchRegister()}
                   type="button">
                   Sign up
                 </button>
@@ -93,38 +82,26 @@ export class RegisterComponent extends HTMLElement implements Component {
     </>;
   }
 
-  public constructor() {
-    super();
-
-    from(this.credentials).pipe(
-      takeWhile(() => this.isConnected)
-    ).subscribe(({ username }) => {
-      this.router.navigate('/profile/' + username, undefined, true).subscribe();
-    });
-  }
-
-  private register(): void {
+  private dispatchRegister(this: this & Component): void {
     const formData = new FormData(this.form);
 
-    if (this.errors.length) {
-      this.errors.length = 0;
-      (this as Component).renderComponent!();
+    if (this.errors) {
+      this.errors = undefined;
+      this.renderComponent!();
     }
 
-    this.endpoint.register(
+    this.store.dispatch('register', [
       formData.get('email')!.toString(),
       formData.get('username')!.toString(),
       formData.get('password')!.toString()
-    ).subscribe({
-      error: ({ response }: Response<Api.Error>) => {
-        for (const key in response.errors) {
-          for (const message of response.errors[key]) {
-            this.errors.push(`${key} ${message}`);
-          }
-        }
-
-        (this as Component).renderComponent!();
-      }
+    ]).subscribe({
+      error: ({ errors }: { errors: Errors }) => {
+        this.errors = errors;
+        this.renderComponent!();
+      },
+      next: ({ username }) => this.router.navigate(
+        `/profile/${username!}`
+      ).subscribe()
     });
   }
 

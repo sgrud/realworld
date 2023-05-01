@@ -1,40 +1,43 @@
-import { assign, Factor, HttpHandler, HttpProxy, Provider, Target } from '@sgrud/core';
-import { from, Observable } from 'rxjs';
-import { AjaxConfig as Request, AjaxResponse as Response } from 'rxjs/ajax';
-import { Credentials } from '../api/credentials';
-import { Endpoint } from '../api/endpoint';
+import { assign, Factor, Http, Provider, Proxy, Target } from '@sgrud/core';
+import { StateHandler, Store } from '@sgrud/state';
+import { first, forkJoin, from, Observable, race, switchMap, timer } from 'rxjs';
+import { ConfigStore } from '../store/config';
+import { UserStore } from '../store/user';
 
-@Target<typeof AuthProxy>()
-export class AuthProxy
-  extends Provider<typeof HttpProxy>('sgrud.core.http.HttpProxy') {
+@Target()
+export class UserProxy
+  extends Provider<typeof Proxy>('sgrud.core.Proxy') {
 
-  @Factor(() => Credentials)
-  private credentials!: Credentials;
+  @Factor(() => ConfigStore)
+  private readonly configStore!: Store<ConfigStore>;
 
-  @Factor(() => Endpoint)
-  private endpoint!: Endpoint;
+  @Factor(() => UserStore)
+  private readonly userStore!: Store<UserStore>;
 
-  private token?: string;
+  public override handle<T>(
+    request: Http.Request,
+    handler: Http.Handler
+  ): Observable<Http.Response<T>> {
+    return race(StateHandler, timer(0)).pipe(switchMap((stateHandler) => {
+      if (stateHandler instanceof StateHandler) {
+        return forkJoin({
+          configState: from(this.configStore).pipe(first()),
+          userState: from(this.userStore).pipe(first())
+        }).pipe(switchMap(({ configState, userState }) => {
+          if (request.url.startsWith(configState.apiUrl) && userState.token) {
+            assign(request, {
+              headers: {
+                authorization: `Token ${userState.token}`
+              }
+            });
+          }
 
-  public constructor() {
-    super();
+          return handler.handle(request);
+        }));
+      }
 
-    from(this.credentials).subscribe((next) => {
-      this.token = next.token;
-    });
-  }
-
-  public override proxy<T>(
-    request: Request,
-    handler: HttpHandler
-  ): Observable<Response<T>> {
-    if (request.url.startsWith(this.endpoint.url) && this.token) {
-      return handler.handle(assign(request, {
-        headers: { ...request.headers, authorization: 'Token ' + this.token }
-      }));
-    }
-
-    return handler.handle(request);
+      return handler.handle(request);
+    }));
   }
 
 }

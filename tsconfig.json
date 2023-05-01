@@ -7,6 +7,9 @@
     "rootDir": "./packages",
     "declarationDir": null,
 
+    "jsx": "react-jsx",
+    "jsxImportSource": "@sgrud/shell",
+
     "declaration": false,
     "declarationMap": false,
     "downlevelIteration": true,
@@ -14,14 +17,11 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "inlineSources": true,
-    "jsx": "react-jsx",
-    "jsxFactory": null,
-    "jsxFragmentFactory": null,
-    "jsxImportSource": "@sgrud/shell",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
 
+    "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,

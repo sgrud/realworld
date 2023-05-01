@@ -5,12 +5,16 @@
   "source": "./index.ts",
   "main": "../../realworld/core/index.js",
   "exports": "../../realworld/core/index.modern.js",
+  "unpkg": "../../realworld/core/index.umd.js",
   "amdNames": {
+    "@babel/runtime/helpers/assertThisInitialized": null,
     "@babel/runtime/helpers/createClass": null,
     "@babel/runtime/helpers/extends": null,
     "@babel/runtime/helpers/inheritsLoose": null,
+    "@sgrud/bus": null,
     "@sgrud/core": null,
     "@sgrud/shell": null,
+    "@sgrud/state": null,
     "rxjs": null,
     "sgrud-realworld-core": null,
     "tslib": "globalThis"
@@ -21,15 +25,19 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime": "^7.18.0",
+    "@babel/runtime": "7.21.5",
+    "@sgrud/bus": "latest",
     "@sgrud/core": "latest",
     "@sgrud/shell": "latest",
-    "rxjs": "^7.5.5",
-    "tslib": "^2.4.0"
+    "@sgrud/state": "latest",
+    "rxjs": "7.8.1",
+    "tslib": "2.5.0"
   },
   "sgrudDependencies": {
+    "@sgrud/bus": "latest",
+    "@sgrud/core": "latest",
     "@sgrud/shell": "latest",
-    "@sgrud/shell/jsx-runtime": "latest"
+    "@sgrud/state": "latest"
   },
   "webDependencies": {
     "@babel/runtime": {
