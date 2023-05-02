@@ -1,3 +1,4 @@
+import { BusHandler } from '@sgrud/bus';
 import { Factor, Kernel } from '@sgrud/core';
 import { Component, Reference, Route, Router } from '@sgrud/shell';
 import { StateHandler, Store } from '@sgrud/state';
@@ -37,6 +38,7 @@ declare global {
 export class AppComponent extends HTMLElement implements Component {
 
   static {
+    new BusHandler('/realworld/worker');
     new StateHandler('/realworld/.');
   }
 

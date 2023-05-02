@@ -35,6 +35,7 @@
       "./packages/lazy"
     ],
     "resources": [
+      "./node_modules/@sgrud/bus/worker",
       "./node_modules/@sgrud/state/worker/.",
       "./resources/."
     ]
