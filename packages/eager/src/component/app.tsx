@@ -2,7 +2,7 @@ import { BusHandler } from '@sgrud/bus';
 import { Factor, Kernel } from '@sgrud/core';
 import { Component, Reference, Route, Router } from '@sgrud/shell';
 import { StateHandler, Store } from '@sgrud/state';
-import { filter, first, from, map, skipWhile, switchMap } from 'rxjs';
+import { filter, first, from, map, switchMap } from 'rxjs';
 import { FadeQueue, UserStore } from 'sgrud-realworld-core';
 import { ArticleComponent } from './article';
 import { ErrorComponent } from './error';
@@ -73,8 +73,7 @@ export class AppComponent extends HTMLElement implements Component {
     ).subscribe();
 
     from(this.userStore).pipe(
-      filter(() => !document.hasFocus()),
-      skipWhile(({ username }) => !username),
+      filter((_, index) => !document.hasFocus() && index > 0),
       map(({ username }) => username ? `/profile/${username}` : '/login'),
       switchMap((path) => this.router.navigate(path, undefined, 'replace'))
     ).subscribe();
