@@ -28,15 +28,15 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime": "7.21.5",
+    "@babel/runtime": "7.22.3",
     "@sgrud/bus": "latest",
     "@sgrud/core": "latest",
     "@sgrud/shell": "latest",
     "@sgrud/state": "latest",
-    "marked": "4.3.0",
+    "marked": "5.0.4",
     "rxjs": "7.8.1",
     "sgrud-realworld-core": "latest",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "sgrudDependencies": {
     "@sgrud/bus": "latest",
