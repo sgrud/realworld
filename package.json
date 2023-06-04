@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "sgrud construct",
-    "postbuild": "sgrud postbuild && sgrud runtimify",
+    "postbuild": "sgrud postbuild",
     "start": "sgrud universal ./realworld/index.html",
     "test": "eslint ./"
   },
