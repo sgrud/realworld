@@ -34,6 +34,15 @@ jobs:
           npm install
           npm run build
           touch ./realworld/.nojekyll
+
+      - name: Test source
+        working-directory: ./source
+        run: |
+          npm test
+
+      - name: Stage source
+        working-directory: ./source
+        run: |
           git --git-dir ../target/.git add -Af ./realworld
 
       - name: Push target
