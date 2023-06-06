@@ -5,7 +5,33 @@
 <link rel="icon" href="/realworld/favicon.ico">
 <link rel="stylesheet" href="/realworld/style.css">
 <script async src="//unpkg.com/es-module-shims"></script>
-<slot hashBased baseHref="/realworld/#!/" is="router-outlet"></slot>
+
+<slot hashBased baseHref="/realworld/#!/" is="router-outlet">
+  <nav class="navbar navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">conduit</a>
+    </div>
+  </nav>
+  <div class="home-page">
+    <div class="banner">
+      <div class="container">
+        <h1 class="logo-font">loading</h1>
+        <p>Please wait &hellip;</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <a class="logo-font" href="#">conduit</a>
+      <span class="attribution">
+        © <script>document.write(new Date().getFullYear());</script>.
+        An interactive learning project from
+        <a href="https://thinkster.io">Thinkster</a>.
+        Code licensed under MIT.
+      </span>
+    </div>
+  </footer>
+</slot>
 
 <script type="importmap-shim">
   {
