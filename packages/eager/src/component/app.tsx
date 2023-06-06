@@ -82,7 +82,7 @@ export class AppComponent extends HTMLElement implements Component {
   public connectedCallback(this: this & Component): void {
     from(StateHandler).subscribe(() => {
       this.renderComponent!();
-      this.fadeQueue.element = this.main!;
+      this.fadeQueue.element = this.main;
     });
   }
 

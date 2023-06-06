@@ -8,7 +8,7 @@ export class FadeQueue
 
   public element?: HTMLElement | undefined;
 
-  public handle(
+  public override handle(
     _prev: Router.State,
     next: Router.State,
     queue: Router.Queue
@@ -18,7 +18,7 @@ export class FadeQueue
       this.element.style.opacity = '0';
 
       return timer(100).pipe(
-        switchMap(() => queue.handle(next).pipe(delay(50))),
+        switchMap(() => queue.handle(next).pipe(delay(100))),
         finalize(() => this.element!.style.opacity = '1')
       );
     }
