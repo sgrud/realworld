@@ -33,7 +33,7 @@
     "@sgrud/core": "latest",
     "@sgrud/shell": "latest",
     "@sgrud/state": "latest",
-    "marked": "5.0.4",
+    "marked": "5.0.5",
     "rxjs": "7.8.1",
     "sgrud-realworld-core": "latest",
     "tslib": "2.5.3"
