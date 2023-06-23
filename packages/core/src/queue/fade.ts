@@ -1,6 +1,6 @@
 import { Provider, Target } from '@sgrud/core';
 import { Queue, Router } from '@sgrud/shell';
-import { Observable, delay, finalize, switchMap, timer } from 'rxjs';
+import { delay, finalize, Observable, switchMap, timer } from 'rxjs';
 
 @Target()
 export class FadeQueue
