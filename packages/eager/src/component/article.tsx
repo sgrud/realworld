@@ -76,7 +76,7 @@ export class ArticleComponent extends HTMLElement implements Component {
         <div className="container page">
           <div className="row article-content">
             <div className="col-md-12">
-              <div>{html(marked(this.article.body))}</div>
+              <div>{html(marked(this.article.body) as string)}</div>
               <ArticleTags tagList={this.article.tagList}/>
             </div>
           </div>
